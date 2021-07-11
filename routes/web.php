@@ -13,7 +13,7 @@ Route::get('/', function () {
 
 
 Route::middleware(['verified','auth'])->group(function(){
-Route::get('/',[AdminController::Class,'index'])->name('admin');
+Route::get('/admin',[AdminController::Class,'index'])->name('admin');
 
 //product module
 Route::get('/admin/product',[ProductController::Class,'index'])->name('product');
