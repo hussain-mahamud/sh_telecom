@@ -9,12 +9,15 @@ use Illuminate\Support\Facades\DB;
 class ReportController extends Controller
 {
     public function index(){
-    	$daily_sales=DB::table('purchases')
-    					->whereRaw('Date(created_at) = CURDATE()')
-    					->sum('pr_price');
-    	$weekly_sales=DB::table('purchases')
-    					->whereRaw('Date(purchases.created_at) >= DATE_SUB(CURDATE(), INTERVAL 6 DAY)')
-    					->sum('pr_price');
+		$daily_sales=DB::table('purchases')
+						->where('created_at', '>=', Carbon::today())
+						->sum('pr_price');
+		$weekly_sales=DB::table('purchases')
+						->select('pr_price')
+						->whereBetween('created_at', [
+							Carbon::parse('last saturday')->startOfDay(),
+							Carbon::parse('next friday')->endOfDay(),
+						])->sum('pr_price');
     					
     	return view('admin.report.index',['daily_sales'=>$daily_sales,'weekly_sales'=>$weekly_sales]);
     }
@@ -23,10 +26,9 @@ class ReportController extends Controller
     	$products=DB::table('purchases')
             			->join('products', 'purchases.pr_id', '=', 'products.id')
             			->select('products.pr_name','products.pr_desc', 'purchases.*')
-            			->whereRaw('Date(purchases.created_at) = CURDATE()')
+            			->where('created_at', '>=', Carbon::today())
             			->orderByDesc('purchases.id')
             			->get();
-            	//dd($products);
     	return response()->json([
     		'products'=>$products]);
     }
@@ -34,7 +36,10 @@ class ReportController extends Controller
     	$products=DB::table('purchases')
             			->join('products', 'purchases.pr_id', '=', 'products.id')
             			->select('products.pr_name','products.pr_desc', 'purchases.*')
-            			->whereRaw('Date(purchases.created_at) >= DATE_SUB(CURDATE(), INTERVAL 6 DAY)')
+            			->whereBetween('created_at', [
+							Carbon::parse('last saturday')->startOfDay(),
+							Carbon::parse('next friday')->endOfDay(),
+						])
             			->orderByDesc('purchases.id')
             			->get();
     	return response()->json([
