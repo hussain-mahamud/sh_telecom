@@ -17,8 +17,8 @@ class AdminSeeder extends Seeder
     	//Sohel123@//heroku
         DB::table('users')->insert([
         	'name'=>'Sohel',
-        	'email'=>'example.com',
-        	'password'=>Hash::make('sohel123')
+        	'email'=>'soheltelecom67@gmail.com',
+        	'password'=>Hash::make('Sohel123@')
 
         ]);
     }
