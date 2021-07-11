@@ -94,4 +94,12 @@ class PurchaseController extends Controller
     	 return redirect()->route('sell')->with('success','Order updated Successfully'); 
 
     }
+    public function deleteOrder($id){
+        $single_order=Purchase::find($id);
+        $single_order->delete();
+        $update=DB::table('products')
+                    ->where('id', '=', $single_order->pr_id)
+                    ->decrement('sold_qty', $single_order->pc_qty);
+        return redirect()->route('sell')->with('success','Order removed Successfully');
+    }
 }

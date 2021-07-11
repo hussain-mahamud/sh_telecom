@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Product\Product;
-
+use App\Models\Purchase\Purchase;
 class ProductController extends Controller
 {
     public function __construct()
@@ -58,8 +58,14 @@ class ProductController extends Controller
     }
 
     public function deleteProduct($id){
-     	$product=Product::find($id);
-     	$product->delete();
-    	return redirect()->route('product')->with('success','Product deleted Successfully');
+         $pid=Purchase::where('pr_id', $id)->get();
+        if(count($pid)){
+          return redirect()->back()->with('success', 'You can not delete this product! It is in Order List');  
+        }
+     	else{
+            $product=Product::find($id);
+            $product->delete();
+            return redirect()->route('product')->with('success','Product deleted Successfully');
+        }
     }
 }

@@ -52,11 +52,15 @@
                                     <td>{{$item->c_remarks}}</td>
                                     <td>{{$item->c_name}}</td>
                                     <td>{{$item->c_phone}}</td> 
-                                    <td>{{ Str::limit($item->c_address, 30) }}</td>  <td>
+                                    <td>{{ Str::limit($item->c_address, 30) }}</td>
+                                      <td>
                                         <a href="{{route('edit.order',$item->id)}}" style="margin-right:15px;">
                                             <i class="far fa-edit " style="color: blue;"></i>
                                         </a>
-                                    </td>               
+                                    </td>
+                                    <td>
+                                      <a href="{{route('delete.order',$item->id)}}"  onclick="return confirm('Delete Order?')"><i class="fas fa-trash " style="color: red;" ></i></a>
+                                    </td>              
 
                                 </tr>
                             @endforeach

@@ -33,6 +33,7 @@ Route::get('admin/create-order',[PurchaseController::Class,'createOrder'])->name
 Route::post('admin/save-order',[PurchaseController::Class,'saveOrder'])->name('save.order');
 Route::get('admin/edit-order/{id}',[PurchaseController::Class,'editOrder'])->name('edit.order');
 Route::post('admin/update-order',[PurchaseController::Class,'updateOrder'])->name('update.order');
+Route::get('admin/delete-order/{id}',[PurchaseController::Class,'deleteOrder'])->name('delete.order');
 //Report module
 Route::get('/admin/report',[ReportController::Class,'index'])->name('report');
 Route::get('/admin/daily-sales',[ReportController::Class,'dailySalesReport'])->name('dailySalesReport');
