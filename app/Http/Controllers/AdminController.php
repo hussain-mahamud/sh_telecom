@@ -12,7 +12,7 @@ class AdminController extends Controller
     public function index(){
 	
 			$daily_sales=DB::table('purchases')
-    	    			->where('created_at','=', date('Y-m-d'))
+						->where('created_at', '>=', Carbon::today())
     	    			->sum('pr_price');
     	// $daily_sales=DB::table('purchases')
     	//     			->whereRaw('Date(created_at) = CURDATE()')
