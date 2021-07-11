@@ -27,7 +27,7 @@ class ReportController extends Controller
     	$products=DB::table('purchases')
             			->join('products', 'purchases.pr_id', '=', 'products.id')
             			->select('products.pr_name','products.pr_desc', 'purchases.*')
-            			->where('created_at', '>=', Carbon::today())
+            			->where('purchases.created_at', '>=', Carbon::today())
             			->orderByDesc('purchases.id')
             			->get();
     	return response()->json([
@@ -37,11 +37,10 @@ class ReportController extends Controller
     	$products=DB::table('purchases')
             			->join('products', 'purchases.pr_id', '=', 'products.id')
             			->select('products.pr_name','products.pr_desc', 'purchases.*')
-            			->whereBetween('created_at', [
+            			->whereBetween('purchases.created_at', [
 							Carbon::parse('last saturday')->startOfDay(),
 							Carbon::parse('next friday')->endOfDay(),
-						])
-            			->orderByDesc('purchases.id')
+						])->orderByDesc('purchases.id')
             			->get();
     	return response()->json([
     		'products'=>$products]);
