@@ -20,7 +20,7 @@
         <header class="topbar" data-navbarbg="skin6" >
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header" data-logobg="skin6">
-                    <a class="navbar-brand justify-content-center" href="{{url('/')}}">
+                    <a class="navbar-brand justify-content-center" href="{{route('admin')}}">
                        
                         <b class="logo-icon">
                         
