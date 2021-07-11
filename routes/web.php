@@ -6,6 +6,8 @@ use App\Http\Controllers\Purchase\PurchaseController;
 use App\Http\Controllers\Report\ReportController;
 use App\Http\Controllers\AdminController;
 
+if (App::environment('production')) {
+    URL::forceScheme('https');
 Route::get('/', function () {
 		return view('auth.login');
 });
