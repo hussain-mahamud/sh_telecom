@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Auth;
 class AdminController extends Controller
 {
     public function index(){
-		dd(date('Y-d-m'));
+	
 			$daily_sales=DB::table('purchases')
-    	    			->where('created_at','=', date())
+    	    			->where('created_at','=', date('Y-m-d'))
     	    			->sum('pr_price');
     	// $daily_sales=DB::table('purchases')
     	//     			->whereRaw('Date(created_at) = CURDATE()')
